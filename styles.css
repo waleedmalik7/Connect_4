@@ -1,8 +1,30 @@
+.title{
+    text-align: center;
+    text-decoration: underline;
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
 .board{
     display: grid;
     grid-template-columns: repeat(7, 150px);
-    grid-template-rows: repeat(6,150px);
+    grid-template-rows: repeat(6, 150px);
+    grid-gap: 10px;
     align-content: center;
     justify-content: center;
-    height: 100vh;
+    background-color: black;
+    border: 10px solid;
+    border-color: black;
+    
+}
+
+[class^="cell-"]{
+    background-color: white;
 }
