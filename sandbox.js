@@ -26,59 +26,40 @@ board.addEventListener('click',(e)=> {
     if (e.target.tagName === 'DIV'){
         let class_name = e.target.getAttribute('class'); //class name of what we clicked
         let cell_number = class_name.split('-')[1]; //cell number
+        let remainder = cell_number % 7;
 
-        if(cell_number % 7 == 0){
-            for (let i = 5; i >= 0; i--){
-                if(storage[i][0] == 0){
-                    storage[i][0] = player_turn;
-                    break;
-                }
-            }
-        }else if(cell_number-1 % 7 == 0){
-            for (let i = 5; i >= 0; i--){
-                if(storage[i][1] == 0){
-                    storage[i][1] = player_turn;
-                    break;
-                }
-            }
-        }else if(cell_number-2 % 7 == 0){
-            for (let i = 5; i >= 0; i--){
-                if(storage[i][2] == 0){
-                    storage[i][2] = player_turn;
-                    break;
-                }
-            }
-        }else if(cell_number-3 % 7 == 0){
-            for (let i = 5; i >= 0; i--){
-                if(storage[i][3] == 0){
-                    storage[i][3] = player_turn;
-                    break;
-                }
-            }
-        }else if(cell_number-4 % 7 == 0){
-            for (let i = 5; i >= 0; i--){
-                if(storage[i][4] == 0){
-                    storage[i][4] = player_turn;
-                    break;
-                }
-            }
-        }else if(cell_number-5 % 7 == 0){
-            for (let i = 5; i >= 0; i--){
-                if(storage[i][5] == 0){
-                    storage[i][5] = player_turn;
-                    break;
-                }
-            }
-        }else if(cell_number-6 % 7 == 0){
-            for (let i = 5; i >= 0; i--){
-                if(storage[i][6] == 0){
-                    storage[i][6] = player_turn;
-                    break;
-                }
+        for (let i = 5; i >= 0; i--){
+            if(storage[i][remainder] == 0){
+                storage[i][remainder] = player_turn;
+                check();
+                break;
             }
         }
+
         player_turn = (player_turn == 1) ? -1 : 1;
         console.log(storage);
     }
 });
 
+const check = () =>{
+    
+    //Horizontal checker
+    let total = 0;
+    for (let i = 0; i < 6; i++){
+        for (let j = 0; j < 7; j++){
+            if(storage[i][j] == player_turn){
+                total += 1;
+            }else{
+                total = 0;
+            }
+            if(total >= 4){
+                console.log(`Winner is player ${player_turn}`);
+            }
+        }
+    }
+    //Vertical checker
+    //Left Diagonal checker
+    //Right Diagonal checker
+
+
+}
