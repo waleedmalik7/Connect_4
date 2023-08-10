@@ -44,20 +44,33 @@ board.addEventListener('click',(e)=> {
 const check = () =>{
     
     //Horizontal checker
-    let total = 0;
+    let total_h = 0;
     for (let i = 0; i < 6; i++){
         for (let j = 0; j < 7; j++){
             if(storage[i][j] == player_turn){
-                total += 1;
+                total_h += 1;
             }else{
-                total = 0;
+                total_h = 0;
             }
-            if(total >= 4){
-                console.log(`Winner is player ${player_turn}`);
+            if(total_h >= 4){
+                console.log(`Winner is player ${player_turn}`); //end game
             }
         }
     }
     //Vertical checker
+    let total_v = 0;
+    for(let i = 0; i < 7; i++){
+        for(let j = 0; j < 6; j++){
+            if(storage[j][i] == player_turn){
+                total_v += 1;
+            }else{
+                total_v = 0;
+            }
+            if(total_v >= 4){
+                console.log(`Winner is player ${player_turn}`); //end game
+            }
+        }
+    }
     //Left Diagonal checker
     //Right Diagonal checker
 
