@@ -33,6 +33,13 @@ board.addEventListener('click',(e)=> {
         for (let i = 5; i >= 0; i--){
             if(storage[i][remainder] == 0){
                 storage[i][remainder] = player_turn;
+                let class_drop = `cell-${i*7 + remainder}`;
+                let new_class = document.querySelector(`div.${class_drop}`);
+                if(player_turn == 1){
+                    new_class.classList.add('blue');
+                }else if(player_turn == -1){
+                    new_class.classList.add('red');
+                }
                 check();
                 break;
             }
@@ -73,27 +80,27 @@ const check = () =>{
             }
         }
     }
-    //Left Diagonal checker
-
-    for(let i = 0; i < rows - 1; i++){
-        let k = i;
-        let y = 0;
-        while(k >= 0){
-            console.log(storage[k][y])
-            k -= 1;
-            y += 1;
-        }
-    }
     
-    for(let i = 0; i < columns; i++){
-        let k = rows - 1;
-        let y = i;
-        while(y < columns){
-            console.log(storage[k][y]);
-            y += 1;
-            k -= 1;
-        }
-    }
+    // for(let i = 0; i < rows; i++){
+    //     let k = i;
+    //     let y = 0;
+    //     while(k >= 0){
+    //         console.log(storage[k][y])
+    //         k -= 1;
+    //         y += 1;
+    //     }
+    // }
+
+    // for(let i = 1; i < columns; i++){
+    //     let k = rows - 1;
+    //     let y = i;
+    //     while(y < columns){
+    //         console.log(storage[k][y]);
+    //         y += 1;
+    //         k -= 1;
+    //     }
+    // }
+    
     //Right Diagonal checker
 
 

@@ -22,9 +22,29 @@
     background-color: black;
     border: 10px solid;
     border-color: black;
-    
 }
 
 [class^="cell-"]{
     background-color: white;
+}
+
+.blue{
+    /* need to fix it */
+    margin-top: 20px; 
+    height: 100px;
+    width: 100px;
+    background-color: blue;
+    border-radius: 50%;
+    justify-self: center;
+    align-items: center;
+}
+
+.red{
+    margin-top: 20px;
+    height: 100px;
+    width: 100px;
+    background-color: red;
+    border-radius: 50%;
+    justify-self: center;
+    align-items: center;
 }
