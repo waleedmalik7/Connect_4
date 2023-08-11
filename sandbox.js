@@ -5,6 +5,8 @@ for (let i = 0; i < 42; i++){
     div.setAttribute('class', `cell-${i}`);
     board.append(div);
 }
+let rows = 6;
+let columns = 7;
 let player_turn = 1;
 let storage = [
 [0,0,0,0,0,0,0], //row 1
@@ -72,6 +74,26 @@ const check = () =>{
         }
     }
     //Left Diagonal checker
+
+    for(let i = 0; i < rows - 1; i++){
+        let k = i;
+        let y = 0;
+        while(k >= 0){
+            console.log(storage[k][y])
+            k -= 1;
+            y += 1;
+        }
+    }
+    
+    for(let i = 0; i < columns; i++){
+        let k = rows - 1;
+        let y = i;
+        while(y < columns){
+            console.log(storage[k][y]);
+            y += 1;
+            k -= 1;
+        }
+    }
     //Right Diagonal checker
 
 
