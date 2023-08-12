@@ -29,6 +29,7 @@ board.addEventListener('click',(e)=> {
         let class_name = e.target.getAttribute('class'); //class name of what we clicked
         let cell_number = class_name.split('-')[1]; //cell number
         let remainder = cell_number % 7;
+        let count = 0;
 
         for (let i = 5; i >= 0; i--){
             if(storage[i][remainder] == 0){
@@ -42,66 +43,121 @@ board.addEventListener('click',(e)=> {
                 }
                 check();
                 break;
+            }else{
+                count+=1;
             }
         }
-
-        player_turn = (player_turn == 1) ? -1 : 1;
-        console.log(storage);
+        if(count < 6){
+            player_turn = (player_turn == 1) ? -1 : 1;
+            console.log(storage);
+        }
+        
     }
 });
 
 const check = () =>{
-    
+
     //Horizontal checker
-    let total_h = 0;
     for (let i = 0; i < 6; i++){
+        let total_h = 0;
         for (let j = 0; j < 7; j++){
             if(storage[i][j] == player_turn){
                 total_h += 1;
+                if(total_h >= 4){
+                    console.log(`Winner is player ${player_turn}`); //end game
+                }
             }else{
                 total_h = 0;
             }
-            if(total_h >= 4){
-                console.log(`Winner is player ${player_turn}`); //end game
-            }
         }
     }
+
     //Vertical checker
-    let total_v = 0;
     for(let i = 0; i < 7; i++){
+        let total_v = 0;
         for(let j = 0; j < 6; j++){
             if(storage[j][i] == player_turn){
                 total_v += 1;
+                if(total_v >= 4){
+                    console.log(`Winner is player ${player_turn}`); //end game
+                }
             }else{
                 total_v = 0;
             }
-            if(total_v >= 4){
-                console.log(`Winner is player ${player_turn}`); //end game
-            }
         }
     }
-    
-    // for(let i = 0; i < rows; i++){
-    //     let k = i;
-    //     let y = 0;
-    //     while(k >= 0){
-    //         console.log(storage[k][y])
-    //         k -= 1;
-    //         y += 1;
-    //     }
-    // }
 
-    // for(let i = 1; i < columns; i++){
-    //     let k = rows - 1;
-    //     let y = i;
-    //     while(y < columns){
-    //         console.log(storage[k][y]);
-    //         y += 1;
-    //         k -= 1;
-    //     }
-    // }
-    
+    //Left Diagonal checker
+    for(let i = 0; i < rows; i++){
+        let total_dL = 0;
+        let k = i;
+        let y = 0;
+        while(k >= 0){
+            if(storage[k][y] == player_turn){
+                total_dL += 1;
+                if(total_dL >= 4){
+                    console.log(`Winner is player ${player_turn}`); //end game
+                }
+            }else{
+                total_dL = 0;
+            }
+            k -= 1;
+            y += 1;
+        }
+    }
+    for(let i = 1; i < columns; i++){
+        let total_dL = 0;
+        let k = rows - 1;
+        let y = i;
+        while(y < columns){
+            if(storage[k][y] == player_turn){
+                total_dL += 1;
+                if(total_dL >= 4){
+                    console.log(`Winner is player ${player_turn}`); //end game
+                }
+            }
+            else{
+                total_dL = 0;
+            }
+            
+            y += 1;
+            k -= 1;
+        }
+    }
+
     //Right Diagonal checker
-
-
+    let total_dR = 0;
+    for(let i = 0; i < 6; i++){
+        let k = i;
+        let y = columns - 1;
+        while(k >= 0){
+            if(storage[k][y] == player_turn){
+                total_dR += 1;
+                if(total_dR >= 4){
+                    console.log(`Winner is player ${player_turn}`); //end game
+                }
+            }else{
+                total_dR = 0;
+            }
+            k -= 1;
+            y -= 1;
+        }
+    }
+    for(let i = columns - 2; i >= 0; i--){
+        total_dR = 0;
+        let k = rows - 1;
+        let y = i;
+        while(y >= 0){
+            if(storage[k][y] == player_turn){
+                total_dR += 1;
+                if(total_dR >= 4){
+                    console.log(`Winner is player ${player_turn}`); //end game
+                }
+            }else{
+                total_dR = 0;
+            }  
+            k -= 1;
+            y -= 1;
+        }
+    }
 }
