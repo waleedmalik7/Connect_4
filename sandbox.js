@@ -1,10 +1,13 @@
 const board = document.querySelector(".board");
+
 for (let i = 0; i < 42; i++){
     const div = document.createElement('div');
     div.textContent =`${i}`;
     div.setAttribute('class', `cell-${i}`);
     board.append(div);
 }
+
+let gameOver = false;
 let rows = 6;
 let columns = 7;
 let player_turn = 1;
@@ -25,33 +28,32 @@ board.addEventListener('click',(e)=> {
     //Column 6: 5,12,19,26,33,40
     //Column 7: 6,13,20,27,34,41
 
-    if (e.target.tagName === 'DIV'){
+    if (e.target.tagName === 'DIV' && !gameOver){
         let class_name = e.target.getAttribute('class'); //class name of what we clicked
         let cell_number = class_name.split('-')[1]; //cell number
         let remainder = cell_number % 7;
-        let count = 0;
 
         for (let i = 5; i >= 0; i--){
             if(storage[i][remainder] == 0){
                 storage[i][remainder] = player_turn;
                 let class_drop = `cell-${i*7 + remainder}`;
                 let new_class = document.querySelector(`div.${class_drop}`);
+
                 if(player_turn == 1){
                     new_class.classList.add('blue');
                 }else if(player_turn == -1){
                     new_class.classList.add('red');
                 }
                 check();
+                player_turn = (player_turn == 1) ? -1 : 1;
+                console.log(storage);
                 break;
-            }else{
-                count+=1;
             }
         }
-        if(count < 6){
-            player_turn = (player_turn == 1) ? -1 : 1;
-            console.log(storage);
+        if(gameOver){
+            player_turn = 0;
+            return;
         }
-        
     }
 });
 
@@ -64,7 +66,7 @@ const check = () =>{
             if(storage[i][j] == player_turn){
                 total_h += 1;
                 if(total_h >= 4){
-                    console.log(`Winner is player ${player_turn}`); //end game
+                    gameOver = true; //end game
                 }
             }else{
                 total_h = 0;
@@ -79,7 +81,7 @@ const check = () =>{
             if(storage[j][i] == player_turn){
                 total_v += 1;
                 if(total_v >= 4){
-                    console.log(`Winner is player ${player_turn}`); //end game
+                    gameOver = true; //end game
                 }
             }else{
                 total_v = 0;
@@ -96,7 +98,7 @@ const check = () =>{
             if(storage[k][y] == player_turn){
                 total_dL += 1;
                 if(total_dL >= 4){
-                    console.log(`Winner is player ${player_turn}`); //end game
+                    gameOver = true; //end game
                 }
             }else{
                 total_dL = 0;
@@ -113,7 +115,7 @@ const check = () =>{
             if(storage[k][y] == player_turn){
                 total_dL += 1;
                 if(total_dL >= 4){
-                    console.log(`Winner is player ${player_turn}`); //end game
+                    gameOver = true; //end game
                 }
             }
             else{
@@ -134,7 +136,7 @@ const check = () =>{
             if(storage[k][y] == player_turn){
                 total_dR += 1;
                 if(total_dR >= 4){
-                    console.log(`Winner is player ${player_turn}`); //end game
+                    gameOver = true; //end game
                 }
             }else{
                 total_dR = 0;
@@ -151,7 +153,7 @@ const check = () =>{
             if(storage[k][y] == player_turn){
                 total_dR += 1;
                 if(total_dR >= 4){
-                    console.log(`Winner is player ${player_turn}`); //end game
+                    gameOver = true; //end game
                 }
             }else{
                 total_dR = 0;
